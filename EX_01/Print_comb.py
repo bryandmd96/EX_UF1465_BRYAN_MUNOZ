@@ -20,18 +20,18 @@ def print_comb(invertido=False):
 
 def main():
     
-    while True:
-        invertido = input("¿Quieres ver las combinaciones en orden invertido? (s/n): ").upper().strip()
+    while True: # ciclo perpetuo
+        invertido = input("¿Quieres ver las combinaciones en orden invertido? (s/n): ").upper().strip() # peticion de orden a imprimir
     
-        if invertido == "S":
-            invertido = False
-            return print_comb(invertido)
-        elif invertido == "N": 
-            invertido = True
-            return print_comb(invertido)
-        else:
-            print("el valor debe ser <s/n>")
-        continue
+        if invertido == "S": # si es invertido
+            invertido = False # será false
+            return print_comb(invertido) # retornará la funcion a imprimir con el booleano determinado
+        elif invertido == "N": # si es normal
+            invertido = True # será true
+            return print_comb(invertido) # retornará la funcion a imprimir con el booleano determinado
+        else: # si no hay considencias 
+            print("el valor debe ser <s/n>") # imprime que erl valor no es correcto 
+        continue # vuelve al ciclo perpetuo
 
         
 
