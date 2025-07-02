@@ -4,7 +4,7 @@ inventory = {}
 
 class InventoryManagement:
     """esta clase representa el inventario"""
-    def __init__(self, product, quantity):
+    def __init__(self):
         """
         Inicializa los atributos
         Argumentos posicionales:
@@ -12,25 +12,28 @@ class InventoryManagement:
         quantity - int cantidad de producto
         inventario - dir {product : quantity}
         """
-        _product = product
-        _quantity = quantity
+        self._product = ""
+        self._quantity = 0
+        self._inventory = {}
         
 
     def add_product(self, product, quantity): # método agregar o actualizar producto y cantidad
-        if f"{product}" in inventory:
-            inventory[f"{product}"] = quantity
+        
+        if f"{product}" in self._inventory:
+            self._inventory[f"{product}"] = self._inventory[f"{product}"] + quantity
         else:
-            inventory.update({f"{product}": quantity})
+            self._inventory.update({f"{product}": quantity})
 
     def delete_product(self, product): # método eliminar o mensaje error
-        inventory.pop(f"{product}", "Producto no encontrado para eliminar")
+        self._inventory.pop(f"{product}", "Producto no encontrado para eliminar")
 
     def consult_product(self, product): # método consultar o mensaje error
-        inventory.get(f"{product}", "Producto no existe en el inventario")
+        return self._inventory.get(product, "Producto no existe en el inventario")
+        
 
     def mod_quantity(self, product, new_quantity):
-        if f"{product}" in inventory:
-            inventory[f"{product}"] = f"{new_quantity}"
+        if f"{product}" in self._inventory:
+            self._inventory[f"{product}"] = f"{new_quantity}"
         else:
             print(f"El producto <{product}> no existe en el inventario")
         
@@ -38,15 +41,25 @@ class InventoryManagement:
     def find_product(self, text):
         text_search = r"text.*"
         resultados = {}
-        for product_search, quantity_search in inventory.items():
+        for product_search, quantity_search in self._inventory.items():
             if re.search(text, product_search):
                 resultados[product_search] = quantity_search
         return resultados
         
 
     def view_inventory(self, sort=False):
-        order_items = sorted(inventory.items())
+        print("--- INVENTARIO ---")
+        order_items = sorted(self._inventory.items())
         for product_search, quantiy_search in order_items:
             print(f"{product_search}: {quantiy_search}")
+        print("------------------")
 
 tienda = InventoryManagement()
+tienda.add_product("Manzanas", 10)
+tienda.add_product("Peras", 5)
+tienda.add_product("Manzanas", 5)
+print("Consultar Manzanas:", tienda.consult_product("Manzanas"))
+tienda.view_inventory()
+tienda.delete_product("Peras")
+print("Inventario después de eliminar Peras:")
+tienda.view_inventory()
