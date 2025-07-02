@@ -1,4 +1,4 @@
-import re
+# import re
 
 inventory = {}
 
@@ -39,20 +39,29 @@ class InventoryManagement:
         
 
     def find_product(self, text):
-        text_search = r"text.*"
-        resultados = {}
+    
+        print("-- coincidencias --")
+
         for product_search, quantity_search in self._inventory.items():
-            if re.search(text, product_search):
-                resultados[product_search] = quantity_search
-        return resultados
+            if text in product_search:
+                print(f"{product_search} : {quantity_search}")
+                
+        print("------------------")
+
         
 
     def view_inventory(self, sort=False):
-        print("--- INVENTARIO ---")
-        order_items = sorted(self._inventory.items())
-        for product_search, quantiy_search in order_items:
-            print(f"{product_search}: {quantiy_search}")
-        print("------------------")
+        if sort == False:
+            print("--- INVENTARIO ---")
+            for product_search, quantity_search in self._inventory.items():
+                print(f"{product_search}: {quantity_search}")
+            print("------------------")
+        else:
+            print("--- INVENTARIO ---")
+            
+            for product_search, quantity_search in sorted(self._inventory.items()):
+                print(f"{product_search}: {quantity_search}")
+            print("------------------")
 
 tienda = InventoryManagement()
 tienda.add_product("Manzanas", 10)
@@ -62,4 +71,5 @@ print("Consultar Manzanas:", tienda.consult_product("Manzanas"))
 tienda.view_inventory()
 tienda.delete_product("Peras")
 print("Inventario después de eliminar Peras:")
-tienda.view_inventory()
+tienda.view_inventory(False)
+
