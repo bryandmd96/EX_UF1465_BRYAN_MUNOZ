@@ -31,14 +31,14 @@ class InventoryManagement:
         return self._inventory.get(product, "Producto no existe en el inventario")
         
 
-    def mod_quantity(self, product, new_quantity):
+    def mod_quantity(self, product, new_quantity): # agregar nueva cantidad
         if f"{product}" in self._inventory:
             self._inventory[f"{product}"] = f"{new_quantity}"
         else:
             print(f"El producto <{product}> no existe en el inventario")
         
 
-    def find_product(self, text):
+    def find_product(self, text): # busqueda parcial por texto
     
         print("-- coincidencias --")
 
@@ -50,7 +50,7 @@ class InventoryManagement:
 
         
 
-    def view_inventory(self, sort=False):
+    def view_inventory(self, sort=False): # imprimir el inventario en orden alf. o en desorden
         if sort == False:
             print("--- INVENTARIO ---")
             for product_search, quantity_search in self._inventory.items():
